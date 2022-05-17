@@ -67,6 +67,7 @@ suite('Functional Tests', function () {
 
 const Browser = require('zombie');
 Browser.site = 'localhost:3000';
+
 const browser = new Browser();
 
 suiteSetup(function (done) {
@@ -86,8 +87,12 @@ suite('Functional Tests with Zombie.js', function () {
 	});
 
 	suite('"Famous Italian Explorers" form', function () {
+		// suiteSetup(function (done) {
+		//   return browser.visit('/', done());
+		// });
 		// #5
 		test('submit "surname" : "Colombo" - write your e2e test...', function (done) {
+      console.log('browser', browser);
 			// fill the form...
 			// then submit it pressing 'submit' button.
 			//
@@ -96,21 +101,23 @@ suite('Functional Tests with Zombie.js', function () {
 			// assert that the text inside the element 'span#name' is 'Cristoforo'
 			// assert that the text inside the element 'span#surname' is 'Colombo'
 			// assert that the element(s) 'span#dates' exist and their count is 1
-			browser.fill('surname', 'Colombo').pressButton('submit', function () {
-				/** YOUR TESTS HERE, Don't forget to remove assert.fail() **/
+			browser.fill('surname', 'Colombo').then(() => {
+				browser.pressButton('submit', function () {
+					/** YOUR TESTS HERE, Don't forget to remove assert.fail() **/
 
-				// pressButton is Async.  Waits for the ajax call to complete...
+					// pressButton is Async.  Waits for the ajax call to complete...
 
-				// assert that status is OK 200
-				browser.assert.success();
-				// assert that the text inside the element 'span#name' is 'Cristoforo'
-				browser.assert.text('span#name', 'Cristoforo');
-				// assert that the text inside the element 'span#surname' is 'Colombo'
-				browser.assert.text('span#surname', 'Colombo');
-				// assert that the element(s) 'span#dates' exist and their count is 1
-				browser.assert.element('span#dates', 1);
+					// assert that status is OK 200
+					browser.assert.success();
+					// assert that the text inside the element 'span#name' is 'Cristoforo'
+					browser.assert.text('span#name', 'Cristoforo');
+					// assert that the text inside the element 'span#surname' is 'Colombo'
+					browser.assert.text('span#surname', 'Colombo');
+					// assert that the element(s) 'span#dates' exist and their count is 1
+					browser.assert.element('span#dates', 1);
 
-				done(); // It's an async test, so we have to call 'done()''
+					done(); // It's an async test, so we have to call 'done()''
+				});
 			});
 		});
 
